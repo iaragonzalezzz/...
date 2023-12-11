@@ -1,0 +1,82 @@
+'''
+nombre: Iara
+apellido: Gonzalez
+Ejercicio Integrador 01
+La división de higiene está trabajando en un control de stock para productos sanitarios.
+Debemos realizar la carga de 5 (cinco) productos de prevención de contagio, de cada una debe
+obtener los siguientes datos:
+1. El tipo (validar "barbijo", "jabón" o "alcohol")
+2. El precio: (validar entre 100 y 300)
+3. La cantidad de unidades ( no puede ser 0 ni negativo y no debe superar las 1000
+unidades)
+4. La marca y el Fabricante.
+Se debe informar lo siguiente:
+A. Del más caro de los barbijos, la cantidad de unidades y el fabricante.
+B. Del ítem con más unidades, el fabricante.
+C. Cuántas unidades de jabones hay en total.
+'''
+
+for numero in range (5):
+
+    lista_marca = []
+    lista_fabricante = []
+
+    tipo = input("Ingrese el tipo: Barbijo, jabon, alcohol")
+    while(tipo != "Jabon" and tipo != "Alcohol" and tipo != "Barbijo"):
+        tipo = input("Ingrese el tipo: Barbijo, jabon, alcohol")
+
+    precio = input("Ingrese el precio")
+    while(precio < 99 or precio > 299):
+        precio = input("Ingrese el precio")
+
+    cantidad = input("Ingrese la cantidad")
+    while(cantidad < 0 or cantidad > 1001):
+        cantidad = input("Ingrese la cantidad")
+
+    marca = input("Ingrese la marca")
+    fabricante = input("Ingrese el fabricante")
+
+    lista_marca.append(marca)
+    lista_fabricante.append(fabricante)
+
+    # A) Del más caro de los barbijos, la cantidad de unidades y el fabricante.
+
+    bandera = 0
+    contador_barbijos_mas_caro = 0
+    barbijo_mas_caro = 0
+    barbijo_mas_caro_fabricante = ""
+
+    for i in range (precio):
+        if(tipo == "Barbijo"):
+            barbijo_mas_caro = barbijo_mas_caro + 1
+            if (bandera == True or barbijo_mas_caro > precio):
+                barbijo_mas_caro = precio
+                barbijo_mas_caro_fabricante = fabricante
+                bandera = False
+
+    # B) Del ítem con más unidades, el fabricante.
+    contador_barbijo = 0
+    contador_alcohol = 0
+    contador_jabon = 0
+
+    match(cantidad):
+        case "Jabon":
+            contador_jabon = contador_jabon + 1
+        case "Alcohol":
+            contador_alcohol = contador_alcohol + 1
+        case _:
+            contador_barbijo = contador_barbijo + 1
+
+    if(contador_jabon > contador_alcohol and contador_jabon > contador_barbijo):
+        mensaje = "El fabricante con mas unidades de jabon es: "
+    elif(contador_barbijo > contador_alcohol and contador_barbijo > contador_jabon):
+        mensaje = "El fabricante con mas unidades de barbijo es: "
+    else:
+        mensaje = "El fabricante con mas unidades de alcohol es: "
+
+    
+            
+
+
+
+

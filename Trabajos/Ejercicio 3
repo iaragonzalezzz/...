@@ -1,0 +1,58 @@
+'''
+nombre: Iara
+apellido: Gonzalez
+---
+Ejercicio 3:
+Ingresar 5 números enteros, distintos de cero.
+Informar:
+a. Cantidad de pares e impares.
+b. El menor número ingresado.
+c. De los pares el mayor número ingresado.
+d. Suma de los positivos.
+e. Producto de los negativos.
+
+'''
+contador_pares = 0
+contador_impares = 0
+
+acumulador_positivos = 0
+acumulador_negativos = 1
+
+bandera = 0
+
+
+for numeros in range (5):
+    numero = input ("Ingrese numeros enteros, distintos de 0")
+    numero = int(numero)
+
+    if (numero % 2 == 0):
+        contador_pares = contador_pares + 1
+    else:
+        contador_impares = contador_impares + 1
+
+    if(bandera == True):
+        menor_numero_ingresado = numero
+        bandera = False
+    else:
+        if(menor_numero_ingresado < numero):
+            menor_numero_ingresado = numero
+
+    if(numero > 0):
+        acumulador_positivos = acumulador_positivos + 1
+    elif(numero < 0):
+        acumulador_negativos = acumulador_negativos * 1
+
+print("Cant. pares: " + contador_pares)
+print("Cant. impares: " + contador_impares)
+print("El menor numero ingresado: " + menor_numero_ingresado)
+print("Producto de los negativos: " + acumulador_negativos)
+
+
+
+
+
+    
+
+
+        
+

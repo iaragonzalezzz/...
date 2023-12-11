@@ -1,0 +1,26 @@
+'''
+nombre: Iara
+apellido: Gonzalez
+---
+Ejercicio 4:
+Pedir una edad y un estado civil, si la edad es menor a 18 años y el estado civil
+distinto a "Soltero", mostrar el siguiente mensaje: 'Es muy pequeño para NO
+ser soltero.'
+'''
+
+edad = input ("Ingrese su edad")
+edad = int(edad)
+while(edad < 0):
+    edad = input ("Ingrese su edad")
+
+estadoCivil = input("Ingrese su estado civil: Casado, Viudo, Soltero")
+while(estadoCivil != "Casado" and estadoCivil != "Soltero" and estadoCivil != "Viudo"):
+    estadoCivil = input("Ingrese su estado civil: Casado, Viudo, Soltero")
+
+
+if (edad < 18 and estadoCivil != "Soltero"):
+    print("Es muy pequeño para NO ser soltero")
+
+
+
+

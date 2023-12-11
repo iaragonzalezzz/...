@@ -1,0 +1,23 @@
+{
+    "IARI": {
+        "Nombre": "iara",
+        "puntaje": 100
+    },
+    "LU": {
+        "Nombre": "lucas",
+        "puntaje": 150
+    },
+    "CANDE": {
+        "Nombre": "candela",
+        "puntaje": 290
+    },
+    "CECI": {
+        "Nombre": "cecilia",
+        "puntaje": 120
+    },
+    "ANI": {
+        "Nombre": "ana",
+        "puntaje": 50
+    
+    }
+}
