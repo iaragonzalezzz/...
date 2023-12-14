@@ -23,9 +23,9 @@ bad =  [
         pygame.image.load("Pou.PYGAME./arch.imagenes/candy_stick-removebg-preview.png") ,
         pygame.image.load("Pou.PYGAME./arch.imagenes/chili_pepper.png") ,
         pygame.image.load("Pou.PYGAME./arch.imagenes/pelota_pou-removebg-preview-removebg-preview.png") ,
-        pygame.image.load("Pou.PYGAME./arch.imagenes/zapa_pou-removebg-preview.jpeg") ,
+        pygame.image.load("Pou.PYGAME./arch.imagenes/zapa_pou-removebg-preview-removebg-preview.png") ,
         ] 
 
-sprites_pou = [ pygame.image.load("Pou.PYGAME./arch.imagenes/movimientopouBOCABIERTA-removebg-preview.jpeg"),
-        pygame.image.load("Pou.PYGAME./arch.imagenes/POUbocacerrada-removebg-preview.jpeg")
+sprites_pou = [ pygame.image.load("Pou.PYGAME./arch.imagenes/POUbocacerrada-removebg-preview-removebg-preview.png"),
+        pygame.image.load("Pou.PYGAME./arch.imagenes/movimientopouBOCABIERTA-removebg-preview-removebg-preview.png")
         ]

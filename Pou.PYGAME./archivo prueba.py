@@ -12,7 +12,7 @@ pantalla = pygame.display.set_mode((ANCHO_VENTANA, ALTO_VENTANA))
 pygame.display.set_caption("FOOD DROP")
 
 def imagen_fondo():
-    imagen_fondo = pygame.image.load("/Users/iargonzalez/Desktop/Trabajos facu/Juego PYGAME./imagens/imagen fondo de menu.jpeg")
+    imagen_fondo = pygame.image.load("/Users/iargonzalez/Desktop/Trabajos facu/Juego PYGAME/imagens/imagen fondo de menu.jpeg")
     imagen_fondo = pygame.transform.scale(imagen_fondo,(ANCHO_VENTANA,ALTO_VENTANA))
     return imagen_fondo
 
@@ -53,36 +53,37 @@ def obtener_datos():
         return datos
     
 def mostrar_datos():
-        corriendo = True
+    corriendo = True
 
-        while corriendo:
-            pantalla.fill((COLOR_AZUL))
-            fuente = pygame.font.SysFont("Arial", 50)   
-            text = fuente.render("Ranking", True, (0, 0, 0))
-            textRect = text.get_rect()
-            textRect.center = (400, 100)
-            pantalla.blit(text, textRect)
+    while corriendo:
+        pantalla.fill((COLOR_AZUL))
+        fuente = pygame.font.SysFont("Arial", 50)   
+        text = fuente.render("Ranking", True, (0, 0, 0))
+        textRect = text.get_rect()
+        textRect.center = (400, 100)
+        pantalla.blit(text, textRect)
 
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                corriendo = False
+                pygame.quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
                     corriendo = False
-                    pygame.quit()
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        corriendo = False
-                        menu()
+                    menu()
 
-            # Muestra los puntajes en la pantalla
-            puntajes = obtener_datos()
-            for i, puntaje in enumerate(puntajes):
-                fuente = pygame.font.SysFont("Arial", 50)
-                texto_puntaje = fuente.render(f"{i + 1}. Nombre: {puntaje['nombre']}, Puntos: {puntaje['puntos']}", True, (0, 0, 0))
+        # Muestra los puntajes en la pantalla
+        puntajes = obtener_datos()
+        for i, puntaje in enumerate(puntajes):
+            fuente = pygame.font.SysFont("Arial", 20)
+            texto_puntaje = fuente.render(f"{i + 1}. Nombre: {puntaje['nombre']}, Puntos: {puntaje['puntos']}", True, (0, 0, 0))
 
-                pantalla.blit(texto_puntaje, (ANCHO_VENTANA // 2 - 150, ALTO_VENTANA // 2 - 100 + i * 100))
+            pantalla.blit(texto_puntaje, (ANCHO_VENTANA // 2 - 150, ALTO_VENTANA // 2 - 100 + i * 100))
 
-            pygame.display.update()
+        pygame.display.update()
 
-        pygame.quit()
+    pygame.quit()
+
 
 def score():
     global puntos 
@@ -100,8 +101,8 @@ def ganaste():
     while corriendo:
 
         pantalla.fill((255, 255, 255))
-        fuente = pygame.font.SysFont("Arial", 50)
-        texto_ganaste = fuente.render('Ganaste! Presiona ESC para volver al menú', True, (0, 0, 0))
+        fuente = pygame.font.SysFont("Arial", 20)
+        texto_ganaste = fuente.render('¡Ganaste! Para volver al menú, presiona ESC', True, (0, 0, 0))
         score = fuente.render("Tu Puntaje: " + str(puntos), True, (0, 0, 0))
         scoreRect = score.get_rect()
         scoreRect.center = (ANCHO_VENTANA // 2, ALTO_VENTANA // 2 + 50)
@@ -170,8 +171,8 @@ def pasar_nivel():
     
     while corriendo:
         pantalla.fill((255, 255, 255))
-        fuente = pygame.font.SysFont("Arial", 50)
-        texto_ganaste = fuente.render('Pasaste al siguiente nivel! Presiona Enter para continuar o ESC para volver al menú', True, (0, 0, 0))
+        fuente = pygame.font.SysFont("Arial", 20)
+        texto_ganaste = fuente.render('¡Nivel superado! Para pasar al siguiente nivel, presione Enter. Para volver al menu, ESC', True, (0, 0, 0))
         ganasteRect = texto_ganaste.get_rect()
         ganasteRect.center = (ANCHO_VENTANA // 2, ALTO_VENTANA // 2 + 50)
         ganasteRect = texto_ganaste.get_rect()
@@ -199,9 +200,9 @@ def mostrar_gameover():
     while corriendo_go:
         pantalla.fill((255, 255, 255))
 
-        fuente = pygame.font.SysFont("Arial", 40)
+        fuente = pygame.font.SysFont("Arial", 30)
         text = fuente.render("Game Over", True, (0, 0, 0))
-        score = fuente.render("Tu Puntaje: " + str(puntos), True, (0, 0, 0))
+        score = fuente.render("Score: " + str(puntos), True, (0, 0, 0))
         scoreRect = score.get_rect()
         scoreRect.center = (ALTO_VENTANA // 2, ANCHO_VENTANA // 2 + 50)
         pantalla.blit(score, scoreRect)
@@ -233,48 +234,56 @@ def nivel_tres():
     clock = pygame.time.Clock()
     puntos = 160
     vida = 3
-    velocidad_comida =  7
-    flag = True
+    velocidad_comida = 11
 
-    fondo = pygame.image.load("Pou.PYGAME./arch.imagenes/nivel_tres.png")  
-    fondo = pygame.transform.scale(fondo, (ANCHO_VENTANA, ALTO_VENTANA)) 
+    fondo = pygame.image.load("Pou.PYGAME./arch.imagenes/nivel_tres.png")
+    fondo = pygame.transform.scale(fondo, (ANCHO_VENTANA, ALTO_VENTANA))
 
     todos_los_sprites = pygame.sprite.Group()
     pou = Pou()
-    comida_buena = ComidaBuena(velocidad_comida)
-    comida_mala = ComidaMala(velocidad_comida)
+    comida_buena = ComidaBuena(food, velocidad_comida)
+    comida_mala = ComidaMala(bad, velocidad_comida)
     todos_los_sprites.add(pou, comida_buena, comida_mala)
+    comidas_buenas = pygame.sprite.Group()
+    comidas_buenas.add(comida_buena)
+    comidas_malas = pygame.sprite.Group()
+    comidas_malas.add(comida_mala)
 
     while corriendo:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 corriendo = False
+
+        keys = pygame.key.get_pressed()
+        pou.actualizar(keys)
         todos_los_sprites.update()
 
-        colisiones_buenas = pygame.sprite.spritecollide(pou, todos_los_sprites, False)
+        colisiones_buenas = pygame.sprite.spritecollide(pou, comidas_buenas, False)
         for colision in colisiones_buenas:
             puntos += 10
+            colision.reset()
             comida_buena_s.play()
 
-        colisiones_malas = pygame.sprite.spritecollide(pou, todos_los_sprites, False)
+        colisiones_malas = pygame.sprite.spritecollide(pou, comidas_malas, False)
         for colision in colisiones_malas:
             vida -= 1
+            colision.reset()
             comida_mala_s.play()
+
         if vida == 0:
             game_over_s.play()
             mostrar_gameover()
-        if puntos == 300:
-        #guardar_puntaje()
+        if puntos >= 300:
             ganaste()
             corriendo = False
 
+        pantalla.blit(fondo, (0, 0))
         todos_los_sprites.draw(pantalla)
-        pygame.display.flip()
-        pygame.time.Clock().tick(30)
         score()
 
+        pygame.display.flip()
         clock.tick(30)
-        pygame.display.update()
+
     pygame.quit()
 
 
@@ -286,33 +295,42 @@ def nivel_dos():
     clock = pygame.time.Clock()
     puntos = 90
     vida = 3
-    velocidad_comida = 7
-    flag = True
+    velocidad_comida = 9
 
-    fondo = pygame.image.load("Pou.PYGAME./arch.imagenes/nivel_dos.jpeg")  
-    fondo = pygame.transform.scale(fondo, (ANCHO_VENTANA, ALTO_VENTANA)) 
+    fondo = pygame.image.load("Pou.PYGAME./arch.imagenes/nivel_dos.jpeg")
+    fondo = pygame.transform.scale(fondo, (ANCHO_VENTANA, ALTO_VENTANA))
 
     todos_los_sprites = pygame.sprite.Group()
     pou = Pou()
-    comida_buena = ComidaBuena(velocidad_comida)
-    comida_mala = ComidaMala(velocidad_comida)
+    comida_buena = ComidaBuena(food, velocidad_comida)
+    comida_mala = ComidaMala(bad, velocidad_comida)
     todos_los_sprites.add(pou, comida_buena, comida_mala)
+    comidas_buenas = pygame.sprite.Group()
+    comidas_buenas.add(comida_buena)
+    comidas_malas = pygame.sprite.Group()
+    comidas_malas.add(comida_mala)
 
     while corriendo:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 corriendo = False
-        # Actualizar todos los sprites
+
+        keys = pygame.key.get_pressed()
+        pou.actualizar(keys)
         todos_los_sprites.update()
-        colisiones_buenas = pygame.sprite.spritecollide(pou, todos_los_sprites, False)
+
+        colisiones_buenas = pygame.sprite.spritecollide(pou, comidas_buenas, False)
         for colision in colisiones_buenas:
             puntos += 10
+            colision.reset()
             comida_buena_s.play()
 
-        colisiones_malas = pygame.sprite.spritecollide(pou, todos_los_sprites, False)
+        colisiones_malas = pygame.sprite.spritecollide(pou, comidas_malas, False)
         for colision in colisiones_malas:
             vida -= 1
+            colision.reset()
             comida_mala_s.play()
+
         if vida == 0:
             game_over_s.play()
             mostrar_gameover()
@@ -320,12 +338,15 @@ def nivel_dos():
             pasar_nivel()
             corriendo = False
 
+        pantalla.blit(fondo, (0, 0))
         todos_los_sprites.draw(pantalla)
-        pygame.display.flip()
         score()
+
+        pygame.display.flip()
         clock.tick(30)
-        pygame.display.update()
+
     pygame.quit()
+
 
 def nivel_uno():
     global puntos, nivel_actual, nombre_usuario
@@ -334,8 +355,7 @@ def nivel_uno():
     clock = pygame.time.Clock()
     puntos = 0
     vida = 3
-    velocidad_comida = 5
-    flag = True
+    velocidad_comida = 7
 
     fondo = pygame.image.load("Pou.PYGAME./arch.imagenes/nivel_uno.jpeg")
     fondo = pygame.transform.scale(fondo, (ANCHO_VENTANA, ALTO_VENTANA))
@@ -345,21 +365,30 @@ def nivel_uno():
     comida_buena = ComidaBuena(food, velocidad_comida)
     comida_mala = ComidaMala(bad, velocidad_comida)
     todos_los_sprites.add(pou, comida_buena, comida_mala)
+    comidas_buenas = pygame.sprite.Group()
+    comidas_buenas.add(comida_buena)
+    comidas_malas = pygame.sprite.Group()
+    comidas_malas.add(comida_mala)
 
     while corriendo:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 corriendo = False
 
-        # Verificar colisiones entre Pou y ComidaBuena
-        colisiones_buenas = pygame.sprite.spritecollide(pou, todos_los_sprites, False)
+        keys = pygame.key.get_pressed()
+        pou.actualizar(keys)
+        todos_los_sprites.update()
+
+        colisiones_buenas = pygame.sprite.spritecollide(pou, comidas_buenas, False)
         for colision in colisiones_buenas:
             puntos += 10
+            colision.reset()
             comida_buena_s.play()
 
-        colisiones_malas = pygame.sprite.spritecollide(pou, todos_los_sprites, False)
+        colisiones_malas = pygame.sprite.spritecollide(pou, comidas_malas, False)
         for colision in colisiones_malas:
             vida -= 1
+            colision.reset()
             comida_mala_s.play()
 
         if vida == 0:
@@ -369,16 +398,15 @@ def nivel_uno():
             pasar_nivel()
             corriendo = False
 
-        todos_los_sprites.update()
-
         pantalla.blit(fondo, (0, 0))
         todos_los_sprites.draw(pantalla)
-
         score()
+
         pygame.display.flip()
         clock.tick(30)
 
     pygame.quit()
+
 
 def menu():
     global puntos
@@ -434,4 +462,3 @@ def menu():
     pygame.quit()
 
 menu()
-cerrar_conexion(conexion)

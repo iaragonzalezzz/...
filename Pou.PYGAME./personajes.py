@@ -11,13 +11,13 @@ class Pou(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.imagenes = [
-            pygame.image.load("Pou.PYGAME./arch.imagenes/movimientopouBOCABIERTA-removebg-preview.jpeg"),
-            pygame.image.load("Pou.PYGAME./arch.imagenes/POUbocacerrada-removebg-preview.jpeg")
+            pygame.image.load("Pou.PYGAME./arch.imagenes/POUbocacerrada-removebg-preview-removebg-preview.png"),
+            pygame.image.load("Pou.PYGAME./arch.imagenes/movimientopouBOCABIERTA-removebg-preview-removebg-preview.png")
         ]
         self.image = self.imagenes[0]
         self.rect = self.image.get_rect()
         self.rect.topleft = (ANCHO_VENTANA // 2, ALTO_VENTANA - 50)
-        self.velocidad = 5
+        self.velocidad = 10
         self.vidas = 3
 
     def actualizar(self, keys):
@@ -39,7 +39,7 @@ class ComidaBuena(pygame.sprite.Sprite):
         self.rect.topleft = (random.randint(0, ANCHO_VENTANA - self.rect.width), 0)
         self.velocidad = velocidad_comida
 
-    def actualizar(self):
+    def update(self):
         self.rect.y += self.velocidad
         if self.rect.top > ALTO_VENTANA:
             self.reset()
@@ -50,13 +50,14 @@ class ComidaBuena(pygame.sprite.Sprite):
 
 class ComidaMala(pygame.sprite.Sprite):
     def __init__(self, bad, velocidad_comida):
+        self.imagenes = bad
         super().__init__()
         self.image = random.choice(self.imagenes)
         self.rect = self.image.get_rect()
         self.rect.topleft = (random.randint(0, ANCHO_VENTANA - self.rect.width), 0)
         self.velocidad = velocidad_comida
 
-    def actualizar(self):
+    def update(self):
         self.rect.y += self.velocidad
         if self.rect.top > ALTO_VENTANA:
             self.reset()
@@ -74,30 +75,9 @@ game_over_s = pygame.mixer.Sound("Pou.PYGAME./sonidos/Y2meta.app - Pou game over
 #sprites
 todos_los_sprites = pygame.sprite.Group()
 pou = Pou()
-comida_buena = ComidaBuena(food, velocidad_comida=3)
-comida_mala = ComidaMala(bad, velocidad_comida=3)
+comida_buena = ComidaBuena(food, velocidad_comida = 3)
+comida_mala = ComidaMala(bad, velocidad_comida = 3)
 todos_los_sprites.add(pou, comida_buena, comida_mala)
 
 
-while not game_over:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            game_over = True
-
-    keys = pygame.key.get_pressed()
-
-    #sprites (ComidaBuena y ComidaMala)
-    comida_buena.actualizar()
-    comida_mala.actualizar()
-
-    # Actualizar sprites generales (incluyendo Pou)
-    pou.actualizar(keys)
-    todos_los_sprites.update()
-    todos_los_sprites.draw(pantalla)
-
-    #pantalla
-    pygame.display.flip()
-
-
-pygame.quit()
 
